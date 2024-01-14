@@ -13,14 +13,14 @@ In your `main.go` file, add the following code:
 ```go
 import (
 	// add this import if is not automatically added
-	"github.com/AndreiTelteu/wails-configstore"
+	wailsconfigstore "github.com/AndreiTelteu/wails-configstore"
 )
 
 func main() {
 	app := NewApp()
 
 	// add this section
-	configStore, err := NewConfigStore("My Application Name")
+	configStore, err := wailsconfigstore.NewConfigStore("My Application Name")
 	if err != nil {
 		fmt.Printf("could not initialize the config store: %v\n", err)
 		return
@@ -54,6 +54,13 @@ ConfigStore.Set('auth.json', JSON.stringify({
 ```
 
 This way you can have multiple config files for different purposes.
+
+When you call `Set` it will create a folder with the name you provided `"My Application Name"` in the following locations:
+- Windows: `C:\Users\{username}\AppData\Local\My Application Name`
+- macOS: `~/Library/Application Support/My Application Name`
+- Linux: `~/.config/My Application Name`
+
+And also a file with the name you provided `"auth.json"` in the folder above.
 
 ### Credits
 
