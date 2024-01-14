@@ -44,6 +44,8 @@ func main() {
 In your frontend code, you can use the config store like this:
 
 ```js
+import * as ConfigStore from '../wailsjs/go/wailsconfigstore/ConfigStore';
+
 ConfigStore.Get('auth.json', 'null').then(res => {
 	data = JSON.parse(res);
 	console.log(data); // is either the data from the file or null
@@ -51,6 +53,9 @@ ConfigStore.Get('auth.json', 'null').then(res => {
 ConfigStore.Set('auth.json', JSON.stringify({
 	username: 'admin', token: 'secret'
 });
+
+// For plain js you can use:
+// window.go.wailsconfigstore.ConfigStore.Get(...)
 ```
 
 This way you can have multiple config files for different purposes.
