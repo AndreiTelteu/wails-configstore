@@ -39,7 +39,7 @@ func main() {
 }
 ```
 
-## Usage
+## Usage in frontend
 
 In your frontend code, you can use the config store like this:
 
@@ -66,6 +66,8 @@ When you call `Set` it will create a folder with the name you provided `"My Appl
 - Linux: `~/.config/My Application Name`
 
 And also a file with the name you provided `"auth.json"` in the folder above.
+
+## Usage in go
 
 If you need to access that json file from Go, use this:
 
