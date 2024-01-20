@@ -67,6 +67,48 @@ When you call `Set` it will create a folder with the name you provided `"My Appl
 
 And also a file with the name you provided `"auth.json"` in the folder above.
 
+If you need to access that json file from Go, use this:
+
+```go
+// new file authState.go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	wailsconfigstore "github.com/AndreiTelteu/wails-configstore"
+)
+
+type AuthState struct {
+	Username string `json:"username"`
+	Token string `json:"token"`
+}
+
+func GetAuthState(conf *wailsconfigstore.ConfigStore) *AuthState {
+	data, err := conf.Get("servers.json", `{ "username":"", "token":"" }`)
+	if err != nil {
+		fmt.Println("could not read the servers config file:", err)
+		return nil
+	}
+	var authState AuthState
+	err = json.Unmarshal([]byte(data), &authState)
+	if err != nil {
+		fmt.Println("could not parse servers config data:", err)
+		return nil
+	}
+	return &authState
+}
+
+// in main.go:
+configStore, err := wailsconfigstore.NewConfigStore("My Application Name")
+if err != nil {
+	fmt.Printf("could not initialize the config store: %v\n", err)
+	return
+}
+authState := GetAuthState(configStore)
+fmt.Println("username", authState.Username)
+```
+
 ### Credits
 
 Thanks to [@ValentinTrinque](https://github.com/ValentinTrinque) for this comment: https://github.com/wailsapp/wails/issues/1956#issuecomment-1279218552
