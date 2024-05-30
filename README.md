@@ -1,7 +1,7 @@
-
 ## Installation
 
 ### Download
+
 ```bash
 go get github.com/AndreiTelteu/wails-configstore
 ```
@@ -44,15 +44,20 @@ func main() {
 In your frontend code, you can use the config store like this:
 
 ```js
-import * as ConfigStore from '../wailsjs/go/wailsconfigstore/ConfigStore';
+import * as ConfigStore from "../wailsjs/go/wailsconfigstore/ConfigStore";
 
-ConfigStore.Get('auth.json', 'null').then(res => {
-	data = JSON.parse(res);
-	console.log(data); // is either the data from the file or null
+ConfigStore.Get("auth.json", "null").then((response) => {
+  const data = JSON.parse(response);
+  console.log(data); // is either the data from the file or null
 });
-ConfigStore.Set('auth.json', JSON.stringify({
-	username: 'admin', token: 'secret'
-});
+
+ConfigStore.Set(
+  "auth.json",
+  JSON.stringify({
+    username: "admin",
+    token: "secret",
+  })
+);
 
 // For plain js you can use:
 // window.go.wailsconfigstore.ConfigStore.Get(...)
@@ -61,6 +66,7 @@ ConfigStore.Set('auth.json', JSON.stringify({
 This way you can have multiple config files for different purposes.
 
 When you call `Set` it will create a folder with the name you provided `"My Application Name"` in the following locations:
+
 - Windows: `C:\Users\{username}\AppData\Local\My Application Name`
 - macOS: `~/Library/Application Support/My Application Name`
 - Linux: `~/.config/My Application Name`
